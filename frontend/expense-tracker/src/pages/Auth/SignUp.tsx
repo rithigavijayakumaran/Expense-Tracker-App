@@ -3,7 +3,15 @@ import React from "react";
 export default function SignUp(){
     return(
         <>
-        <p>signup</p>
+        <div>
+            <div>
+         
+            </div>
+
+            <div>
+
+            </div>
+        </div>
         </>
     );
 }

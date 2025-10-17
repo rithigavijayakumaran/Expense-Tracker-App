@@ -1,0 +1,38 @@
+.Login-container{
+    display: flex;
+    flex-direction: row;
+     height: 100vh;
+     width: 100vw;
+   
+}
+
+.content-ctn{
+    flex:1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    padding:4rem;
+    background-color: whitesmoke;
+}
+
+.image-section{
+    flex:1;
+    overflow: hidden;
+}
+
+.image-section img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; 
+}
+
+.signUp-text{
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+}
+
+#welcome-text{
+    margin: 0px;
+}
