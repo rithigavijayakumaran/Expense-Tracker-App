@@ -7,7 +7,9 @@ const {
   deleteTransaction,
 } = require("../controllers/transactionController");
 const router = express.Router();
-router.route("/").post(createTransaction).get(getAllTransactions);
+router.route("/")
+  .post(createTransaction)
+  .get(getAllTransactions);
 
 router
   .route("/:id")
