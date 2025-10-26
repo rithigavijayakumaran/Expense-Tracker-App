@@ -3,7 +3,7 @@ import asyncHandler from "express-async-handler";
 import { Response,Request,NextFunction } from "express";
 
 import{ createUserService, deleteUserService, getUserService, updateUserService} from "../services/userService";
-import { updateTransactionService } from "../services/transactionService";
+
 const createUser = asyncHandler(async(req:Request,res:Response)=>{
    const user = await createUserService(
     req.body.email,
