@@ -1,7 +1,6 @@
 import { pool } from "../config/db";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import dotenv from "dotenv";
 
 export const registerUserService = async (
   email: string,
@@ -40,7 +39,7 @@ export const loginUserService = async (email: string, password: string) => {
   }
 
   const token = jwt.sign(
-    { id: user.id, email: user.email,username:user.fullname },
+    { id: user.id, email: user.email, username: user.fullname },
     process.env.JWT_SECRET || "defaultsecret",
     { expiresIn: "1d" }
   );

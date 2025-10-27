@@ -12,8 +12,13 @@ import {
 } from "../services/transactionService";
 
 export const createTransaction = asyncHandler( async (req: Request, res: Response) => {
+  if (!req.user) {
+    res.status(401);
+    throw new Error("User not authorized");
+  }
+
     const transaction = await createTransactionService(
-     req.body.user_id,
+     req.user.id,
      req.body.description,
      req.body.status,
      req.body.source,

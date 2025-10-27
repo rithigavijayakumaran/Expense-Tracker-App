@@ -10,8 +10,7 @@ import {
 } from "../services/userService";
 
 const registerUser = asyncHandler(async (req: Request, res: Response) => {
-
-  const { email,fullname,password } = req.body;
+  const { email, fullname, password } = req.body;
   if (!email || !password) {
     res.status(400);
     throw new Error("all fields are mandatory!");
@@ -25,7 +24,6 @@ const registerUser = asyncHandler(async (req: Request, res: Response) => {
     message: "User registration successfull",
     user,
   });
-
 });
 
 const loginUser = asyncHandler(async (req: Request, res: Response) => {
@@ -76,4 +74,10 @@ const updateUser = async (req: Request, res: Response) => {
   }
   res.status(200).json(user);
 };
-module.exports = { registerUser, loginUser, getUserProfile, deleteUser, updateUser };
+module.exports = {
+  registerUser,
+  loginUser,
+  getUserProfile,
+  deleteUser,
+  updateUser,
+};
