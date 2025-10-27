@@ -23,7 +23,7 @@ export const createCategory = asyncHandler(async (req: Request, res: Response) =
 });
 
 
-export const getAllCategory = asyncHandler(async (req: Request, res: Response) => {
+export  const getAllCategory = asyncHandler(async (req: Request, res: Response) => {
   const categories = await getAllCategoryService();
 
   if (!categories || categories.length === 0) {
@@ -33,7 +33,6 @@ export const getAllCategory = asyncHandler(async (req: Request, res: Response) =
 
   res.status(200).json(categories);
 });
-
 
 export const getTransactionsByCategory = asyncHandler(async (req: Request, res: Response) => {
   const { id } = req.params;
@@ -48,8 +47,3 @@ export const getTransactionsByCategory = asyncHandler(async (req: Request, res: 
   res.status(200).json(transactions);
 });
 
-export default {
-  createCategory,
-  getAllCategory,
-  getTransactionsByCategory,
-};

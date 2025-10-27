@@ -11,7 +11,7 @@ import {
 
 } from "../services/transactionService";
 
-const createTransaction = asyncHandler( async (req: Request, res: Response) => {
+export const createTransaction = asyncHandler( async (req: Request, res: Response) => {
     const transaction = await createTransactionService(
      req.body.user_id,
      req.body.description,
@@ -25,12 +25,12 @@ const createTransaction = asyncHandler( async (req: Request, res: Response) => {
     res.status(201).json(transaction);
 });
 
-const getAllTransactions = asyncHandler (async (req: Request, res: Response) => {
+export const getAllTransactions = asyncHandler (async (req: Request, res: Response) => {
     const transactions = await getAllTransactionsService();
     res.status(200).json(transactions);
 });
 
-const getTransactionsById = asyncHandler (async (req: Request, res: Response) => {
+export const getTransactionsById = asyncHandler (async (req: Request, res: Response) => {
   const transaction = await getTransactionByIdService(
     Number(req.params.id)
   );
@@ -43,7 +43,7 @@ const getTransactionsById = asyncHandler (async (req: Request, res: Response) =>
   
 });
 
-const updateTransaction = asyncHandler (async (req: Request, res: Response) => {
+export const updateTransaction = asyncHandler (async (req: Request, res: Response) => {
    const transaction = await updateTransactionService(
     Number(req.params.id),
     req.body.description,
@@ -63,7 +63,7 @@ const updateTransaction = asyncHandler (async (req: Request, res: Response) => {
 
 });
 
-const deleteTransaction = asyncHandler(async (req: Request, res: Response) => {
+export const deleteTransaction = asyncHandler(async (req: Request, res: Response) => {
   const transaction = await deleteTransactionService(Number(req.params.id));
   if(!transaction){
     res.status(404);
@@ -72,10 +72,3 @@ const deleteTransaction = asyncHandler(async (req: Request, res: Response) => {
   res.status(200).json(transaction);
 });
 
-module.exports = {
-  createTransaction,
-  getAllTransactions,
-  getTransactionsById,
-  updateTransaction,
-  deleteTransaction,
-};

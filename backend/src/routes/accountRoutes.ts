@@ -1,7 +1,8 @@
 import express = require("express");
 const router = express.Router();
+import {createAccount,updateAccount,deleteAccount,getAccount} from "../controllers/accountController"
 
-router.route("/").post().get();
-router.route("/:id").put().delete()
+router.route("/").post(createAccount).get(getAccount);
+router.route("/:id").put(updateAccount).delete(deleteAccount);
 
-module.exports= router;
+export default router;

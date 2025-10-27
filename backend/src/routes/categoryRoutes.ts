@@ -5,4 +5,4 @@ import { createCategory,getAllCategory, getTransactionsByCategory} from '../cont
 
 router.route("/").post(createCategory).get(getAllCategory);
 router.route("/:id/transactions").get(getTransactionsByCategory);
-exports.module =router;
+export default router;

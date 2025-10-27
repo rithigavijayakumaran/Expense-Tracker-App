@@ -26,4 +26,3 @@ export const getTransactionsByCategoryService = async (categoryId: number) => {
   );
   return result.rows;
 };
-

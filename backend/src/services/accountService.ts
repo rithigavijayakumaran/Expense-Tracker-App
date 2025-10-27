@@ -1,6 +1,5 @@
 import { pool } from "../config/db";
 
-
 export const createAccountService = async (
   user_id: number,
   account_name: string,
@@ -13,17 +12,16 @@ export const createAccountService = async (
      RETURNING *`,
     [user_id, account_name, account_number, account_balance]
   );
-  return result.rows[0]; 
+  return result.rows[0];
 };
 
-
-export const getAccountService = async (id:number) => {
+export const getAccountService = async (id: number) => {
   const result = await pool.query(
-    `SELECT * FROM tblaccount where user_id = $1`,[id]
+    `SELECT * FROM tblaccount where user_id = $1`,
+    [id]
   );
-  return result.rows[0]; 
+  return result.rows[0];
 };
-
 
 export const updateAccountService = async (
   id: number,
@@ -41,11 +39,10 @@ export const updateAccountService = async (
   return result.rows[0];
 };
 
-
 export const deleteAccountService = async (id: number) => {
   const result = await pool.query(
     `DELETE FROM tblaccount WHERE id = $1 RETURNING *`,
     [id]
   );
-  return result.rows[0]; 
+  return result.rows[0];
 };

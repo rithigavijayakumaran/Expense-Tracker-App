@@ -9,8 +9,7 @@ import {
   deleteAccountService,
 } from "../services/accountService";
 
-
-const createAccount = asyncHandler(async (req: Request, res: Response) => {
+export const createAccount = asyncHandler(async (req: Request, res: Response) => {
   const { user_id, account_name, account_number, account_balance } = req.body;
   if (!user_id || !account_name || !account_number || account_balance == null) {
     res.status(400);
@@ -30,7 +29,7 @@ const createAccount = asyncHandler(async (req: Request, res: Response) => {
   });
 });
 
-const updateAccount = asyncHandler(async (req: Request, res: Response) => {
+export const updateAccount = asyncHandler(async (req: Request, res: Response) => {
   const { id } = req.params;
   const { account_name, account_number, account_balance } = req.body;
   if (!account_number || !account_balance || !account_name == null) {
@@ -55,7 +54,7 @@ const updateAccount = asyncHandler(async (req: Request, res: Response) => {
   });
 });
 
-const deleteAccount = asyncHandler(async (req: Request, res: Response) => {
+export const deleteAccount = asyncHandler(async (req: Request, res: Response) => {
   const { id } = req.params;
 
   const deletedAccount = await deleteAccountService(Number(id));
@@ -71,7 +70,7 @@ const deleteAccount = asyncHandler(async (req: Request, res: Response) => {
   });
 });
 
-const getAccount = asyncHandler(async (req: Request, res: Response) => {
+export const getAccount = asyncHandler(async (req: Request, res: Response) => {
   const { id } = req.params;
   const account = await getAccountService(Number(id));
 
@@ -83,9 +82,3 @@ const getAccount = asyncHandler(async (req: Request, res: Response) => {
   res.status(200).json(account);
 });
 
-exports.module = {
-  createAccount,
-  updateAccount,
-  deleteAccount,
-  getAccount,
-};
