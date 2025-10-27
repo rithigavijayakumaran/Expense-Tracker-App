@@ -31,13 +31,21 @@ export const createTransaction = asyncHandler( async (req: Request, res: Respons
 });
 
 export const getAllTransactions = asyncHandler (async (req: Request, res: Response) => {
-    const transactions = await getAllTransactionsService();
+  if (!req.user) {
+    res.status(401);
+    throw new Error("User not authorized");
+  }
+    const transactions = await getAllTransactionsService(req.user.id);
     res.status(200).json(transactions);
 });
 
 export const getTransactionsById = asyncHandler (async (req: Request, res: Response) => {
+   if (!req.user) {
+    res.status(401);
+    throw new Error("User not authorized");
+  }
   const transaction = await getTransactionByIdService(
-    Number(req.params.id)
+    Number(req.params.id),req.user.id
   );
 
   if(!transaction){
@@ -49,7 +57,13 @@ export const getTransactionsById = asyncHandler (async (req: Request, res: Respo
 });
 
 export const updateTransaction = asyncHandler (async (req: Request, res: Response) => {
+   if (!req.user) {
+    res.status(401);
+    throw new Error("User not authorized");
+  }
+
    const transaction = await updateTransactionService(
+    req.user.id,
     Number(req.params.id),
     req.body.description,
     req.body.status,
@@ -69,7 +83,11 @@ export const updateTransaction = asyncHandler (async (req: Request, res: Respons
 });
 
 export const deleteTransaction = asyncHandler(async (req: Request, res: Response) => {
-  const transaction = await deleteTransactionService(Number(req.params.id));
+   if (!req.user) {
+    res.status(401);
+    throw new Error("User not authorized");
+  }
+  const transaction = await deleteTransactionService(Number(req.params.id),req.user.id);
   if(!transaction){
     res.status(404);
     throw new Error("Transaction not found");

@@ -16,22 +16,23 @@ export const createTransactionService = async(
     return result.rows[0];
 }
 
-export const getAllTransactionsService = async() =>{
-  const result = await pool.query("SELECT * FROM tbltransaction ORDER BY createdAt DESC");
+export const getAllTransactionsService = async(id:number) =>{
+  const result = await pool.query("SELECT * FROM tbltransaction where user_id =$1 ORDER BY createdAt DESC",[id]);
   return result.rows;
 };
 
-export const getTransactionByIdService = async(id: number)=>{
-    const result = await pool.query("SELECT * FROM tbltransaction where id=$1",[id]);
+export const getTransactionByIdService = async(id: number,user_id : number)=>{
+    const result = await pool.query("SELECT * FROM tbltransaction where id=$1 and user_id=$2",[id,user_id]);
     return result.rows[0];
 };
 
-export const deleteTransactionService = async (id: number) => {
-  const result = await pool.query("DELETE FROM tbltransaction WHERE id=$1 RETURNING *", [id]);
+export const deleteTransactionService = async (id: number,user_id:number) => {
+  const result = await pool.query("DELETE FROM tbltransaction WHERE id=$1 and user_id =$2 RETURNING *", [id,user_id]);
   return result.rows[0];
 };
 
 export const updateTransactionService = async (
+  user_id :number,
   id: number,
   description: string,
   status: string,
@@ -44,8 +45,8 @@ export const updateTransactionService = async (
   const result = await pool.query(
     `UPDATE tbltransaction
      SET description=$1, status=$2, source=$3, amount=$4, type=$5, category_id=$6, account_id=$7, updatedAt=NOW()
-     WHERE id=$8 RETURNING *`,
-    [description, status, source, amount, type, category_id, account_id, id]
+     WHERE id=$8 and user_id=$9 RETURNING *`,
+    [description, status, source, amount, type, category_id, account_id, id,user_id]
   );
   return result.rows[0];
 };
