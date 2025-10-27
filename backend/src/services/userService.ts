@@ -8,7 +8,7 @@ export const registerUserService = async (
   password: string
 ) => {
   const existingUser = await pool.query(
-    `select from tblUser where email = $1`,
+    `select * from tblUser where email = $1`,
     [email]
   );
   if (existingUser.rows.length > 0) {
@@ -68,15 +68,15 @@ export const deleteUserService = async (id: number) => {
 export const updateUserService = async (
   id: number,
   email: string,
-  fullName: string,
+  fullname: string,
   password: string
 ) => {
   const result = await pool.query(
     `UPDATE tbluser
-     SET email = $1, fullName = $2, password = $3, updatedAt = NOW()
+     SET email = $1, fullname = $2, password = $3, updatedAt = NOW()
      WHERE id = $4
      RETURNING *`,
-    [email, fullName, password, id]
+    [email, fullname, password, id]
   );
   return result.rows[0];
 };

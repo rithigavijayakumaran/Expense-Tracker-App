@@ -4,6 +4,8 @@ import jwt, { JwtPayload } from "jsonwebtoken";
 interface CustomJwtPayload extends JwtPayload {
   id: number;
   email: string;
+  username?: string;
+
 }
 
 export const validateToken = asyncHandler(

@@ -11,7 +11,7 @@ import {
 
 const registerUser = asyncHandler(async (req: Request, res: Response) => {
   const { email, fullname, password } = req.body;
-  if (!email || !password) {
+  if (!email || !password || !fullname) {
     res.status(400);
     throw new Error("all fields are mandatory!");
   }
@@ -53,19 +53,40 @@ const getUserProfile = asyncHandler(async (req: Request, res: Response) => {
 });
 
 const deleteUser = async (req: Request, res: Response) => {
-  const user = await deleteUserService(Number(req.body.params));
+  if (!req.user) {
+    res.status(401);
+    throw new Error("User not Authorised");
+  }
+  if (req.user.id !== Number(req.params.id)) {
+    res.status(403);
+    throw new Error("You can only delete your own account");
+  }
+
+  const user = await deleteUserService(Number(req.params.id));
   if (!user) {
     res.status(404);
     throw new Error("user not found");
   }
-  res.status(200).json(user);
+  res.status(200).json({
+    message : "User deleted Successfully",
+    user
+  });
 };
 
 const updateUser = async (req: Request, res: Response) => {
+  if (!req.user) {
+    res.status(401);
+    throw new Error("User not Authorised");
+  }
+  if (req.user.id !== Number(req.params.id)) {
+    res.status(403);
+    throw new Error("You can only delete your own account");
+  }
+
   const user = await updateUserService(
-    Number(req.body.params),
+    req.user.id,
     req.body.email,
-    req.body.fullName,
+    req.body.fullname,
     req.body.password
   );
   if (!user) {

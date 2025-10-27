@@ -12,5 +12,5 @@ const {
 router.route("/register").post(registerUser);
 router.route("/login").post(loginUser);
 router.route("/profile").get(validateToken,getUserProfile);
-router.route("/:id").delete(deleteUser).put(validateToken,updateUser);
+router.route("/:id").delete(validateToken,deleteUser).put(validateToken,updateUser);
 export default router;
