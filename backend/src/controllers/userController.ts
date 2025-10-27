@@ -5,19 +5,18 @@ import { Response, Request, NextFunction } from "express";
 import {
   registerUserService,
   deleteUserService,
-  getUserService,
   updateUserService,
   loginUserService,
 } from "../services/userService";
 
 const registerUser = asyncHandler(async (req: Request, res: Response) => {
 
-  const { email, password, username } = req.body;
+  const { email,fullname,password } = req.body;
   if (!email || !password) {
     res.status(400);
     throw new Error("all fields are mandatory!");
   }
-  const user = await registerUserService(email, username, password);
+  const user = await registerUserService(email, fullname, password);
   if (!user) {
     res.status(404);
     throw new Error("Registration Unsuccessfull");
@@ -46,8 +45,8 @@ const loginUser = asyncHandler(async (req: Request, res: Response) => {
   });
 });
 
-const getUser = asyncHandler(async (req: Request, res: Response) => {
-  const user = await getUserService(Number(req.body.params));
+const getUserProfile = asyncHandler(async (req: Request, res: Response) => {
+  const user = req.user;
   if (!user) {
     res.status(404);
     throw new Error("user not found");
@@ -77,4 +76,4 @@ const updateUser = async (req: Request, res: Response) => {
   }
   res.status(200).json(user);
 };
-module.exports = { registerUser, loginUser, getUser, deleteUser, updateUser };
+module.exports = { registerUser, loginUser, getUserProfile, deleteUser, updateUser };

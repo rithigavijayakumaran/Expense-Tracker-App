@@ -6,8 +6,10 @@ import {
   getTransactionsById,
   deleteTransaction,
 } from "../controllers/transactionController";
+import { validateToken } from "../middlewares/validateTokenHandler";
 
 const router = express.Router();
+router.use(validateToken)
 router.route("/")
   .post(createTransaction)
   .get(getAllTransactions);

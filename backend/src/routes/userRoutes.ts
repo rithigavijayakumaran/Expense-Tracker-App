@@ -1,8 +1,8 @@
 import express = require("express");
 const router = express.Router();
-
+import {validateToken } from "../middlewares/validateTokenHandler"
 const {
-  getUser,
+  getUserProfile,
   registerUser,
   loginUser,
   deleteUser,
@@ -11,6 +11,6 @@ const {
 
 router.route("/register").post(registerUser);
 router.route("/login").post(loginUser);
-router.route("/:id").delete(deleteUser).put(updateUser).get(getUser);
-
+router.route("/profile").get(validateToken,getUserProfile);
+router.route("/:id").delete(deleteUser).put(validateToken,updateUser);
 export default router;

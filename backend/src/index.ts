@@ -5,10 +5,14 @@ import  categoryRouter from "./routes/categoryRoutes";
 import userRouter from "./routes/userRoutes";
 import accountRouter from "./routes/accountRoutes";
 import { errorHandler } from "./middlewares/errorHandler";
+import {pool} from "./config/db"
 
 dotenv.config();
 const app = express();
 app.use(express.json());
+
+pool.connect().then(() => console.log("✅ Connected to PostgreSQL"));
+
 
 app.use("/api/transactions", transactionRouter);
 app.use("/api/categories", categoryRouter);

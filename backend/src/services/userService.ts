@@ -5,7 +5,7 @@ import dotenv from "dotenv";
 
 export const registerUserService = async (
   email: string,
-  fullName: string,
+  fullname: string,
   password: string
 ) => {
   const existingUser = await pool.query(
@@ -18,10 +18,10 @@ export const registerUserService = async (
   const hashedPassword = await bcrypt.hash(password, 10);
   console.log("hashedPassword : $1", hashedPassword);
   const result = await pool.query(
-    `INSERT INTO tbluser (email, fullName, password)
+    `INSERT INTO tbluser (email, fullname, password)
      VALUES ($1, $2, $3)
      RETURNING *`,
-    [email, fullName, hashedPassword]
+    [email, fullname, hashedPassword]
   );
   return result.rows[0];
 };
@@ -40,7 +40,7 @@ export const loginUserService = async (email: string, password: string) => {
   }
 
   const token = jwt.sign(
-    { id: user.id, email: user.email },
+    { id: user.id, email: user.email,username:user.fullname },
     process.env.JWT_SECRET || "defaultsecret",
     { expiresIn: "1d" }
   );
@@ -53,10 +53,10 @@ export const loginUserService = async (email: string, password: string) => {
   };
 };
 
-export const getUserService = async (id: number) => {
-  const result = await pool.query(`SELECT * from tbluser where id = $1`, [id]);
-  return result.rows[0];
-};
+// export const getUserService = async () => {
+//   const result = reques
+//   return result.rows[0];
+// };
 
 export const deleteUserService = async (id: number) => {
   const result = await pool.query(
