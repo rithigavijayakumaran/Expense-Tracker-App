@@ -17,14 +17,16 @@ export const getAllCategoryService = async () => {
 };
 
 
-export const getTransactionsByCategoryService = async (categoryId: number,user_id:number) => {
+export const getTransactionsByCategoryService = async (
+  categoryId: number,
+  user_id: number
+) => {
   const result = await pool.query(
     `SELECT t.*
-     FROM tbltransactions t
+     FROM tbltransaction t
      INNER JOIN tblcategory c ON t.category_id = c.id
-     INNER JOIN tbluser u ON t.user_id = u.user_id
-     WHERE c.id = $1 and u.user_id=$2`,
-    [categoryId,user_id]
+     WHERE c.id = $1 AND t.user_id = $2`,
+    [categoryId, user_id]
   );
   return result.rows;
 };

@@ -34,23 +34,23 @@ export  const getAllCategory = asyncHandler(async (req: Request, res: Response) 
   res.status(200).json(categories);
 });
 
-
 export const getTransactionsByCategory = asyncHandler(async (req: Request, res: Response) => {
-  if(!req.user){
-    res.status(401)
-    throw new Error("user not authorised");
+  if (!req.user) {
+    res.status(401);
+    throw new Error("User not authorized");
   }
 
   const { id } = req.params;
-
-
-  const transactions = await getTransactionsByCategoryService(Number(id),req.user.id);
+  const transactions = await getTransactionsByCategoryService(Number(id), req.user.id);
 
   if (!transactions || transactions.length === 0) {
     res.status(404);
     throw new Error("No transactions found for this category");
   }
 
-  res.status(200).json(transactions);
+  res.status(200).json({
+    message: "Transactions fetched successfully for the category",
+    transactions,
+  });
 });
 
