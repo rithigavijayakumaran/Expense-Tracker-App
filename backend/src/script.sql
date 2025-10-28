@@ -39,3 +39,10 @@ CREATE TABLE IF NOT EXISTS tbltransaction (
     createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updatedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
+
+-- {
+--   "email" :"rithiga2026@gmail.com",
+--   "fullname":"Rithiga",
+--   "password":"12"
+  
+-- }

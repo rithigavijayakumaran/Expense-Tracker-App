@@ -52,11 +52,6 @@ export const loginUserService = async (email: string, password: string) => {
   };
 };
 
-// export const getUserService = async () => {
-//   const result = reques
-//   return result.rows[0];
-// };
-
 export const deleteUserService = async (id: number) => {
   const result = await pool.query(
     `DELETE FROM tbluser WHERE id = $1 RETURNING *`,

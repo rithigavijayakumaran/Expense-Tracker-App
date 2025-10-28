@@ -34,10 +34,17 @@ export  const getAllCategory = asyncHandler(async (req: Request, res: Response) 
   res.status(200).json(categories);
 });
 
+
 export const getTransactionsByCategory = asyncHandler(async (req: Request, res: Response) => {
+  if(!req.user){
+    res.status(401)
+    throw new Error("user not authorised");
+  }
+
   const { id } = req.params;
 
-  const transactions = await getTransactionsByCategoryService(Number(id));
+
+  const transactions = await getTransactionsByCategoryService(Number(id),req.user.id);
 
   if (!transactions || transactions.length === 0) {
     res.status(404);

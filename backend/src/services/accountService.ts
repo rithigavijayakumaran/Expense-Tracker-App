@@ -17,7 +17,7 @@ export const createAccountService = async (
 
 export const getAccountService = async (id: number) => {
   const result = await pool.query(
-    `SELECT * FROM tblaccount where user_id = $1`,
+    `SELECT * FROM tblaccount where id = $1`,
     [id]
   );
   return result.rows[0];
@@ -46,3 +46,10 @@ export const deleteAccountService = async (id: number) => {
   );
   return result.rows[0];
 };
+
+export const getAllAccountsService = async(id:number)=>{
+  const result = await pool.query(`SELECT * FROM tblaccount WHERE user_id = $1 ORDER BY createdAt DESC;
+`,[id]);
+    return result.rows;
+}
+
