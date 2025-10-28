@@ -54,7 +54,7 @@ export const updateAccount = asyncHandler(
 
     const { id } = req.params;
     const { account_name, account_number, account_balance } = req.body;
-    if (!account_name||!account_number || !account_balance  == null) {
+    if (!account_name||!account_number || account_balance==null) {
       res.status(400);
       throw new Error("All fields are mandatory");
     }
@@ -145,7 +145,8 @@ export const getAllAccountsOfUser = asyncHandler(
     }
 
     const user_id = req.user.id;
-  
+    
+
     const accounts = await getAllAccountsService(user_id);
     if (!accounts) {
       res.status(404);
